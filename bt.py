@@ -1,3 +1,25 @@
+class Stack(object):
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1].value
+
+    def __len__(self):
+        return len(self.items)
+
+
 class Queue(object):
     def __init__(self):
         self.items = []
@@ -53,6 +75,8 @@ class BinaryTree(object):
             return self.postorder(tree.root, "")
         elif traversal_type == "levelorder":
             return self.levelorder(tree.root)
+        elif traversal_type == "reverseorder":
+            return self.reverseorder(tree.root)
         else:
             print("Traversal type " + traversal_type + "is not supported")
             return False
@@ -100,6 +124,32 @@ class BinaryTree(object):
 
         return traversal
 
+    def reverseorder(self, start):
+        if start is None:
+            return
+
+        traversal = ""
+        queue = Queue()
+        stack = Stack()
+
+        queue.enqueue(start)
+
+        while len(queue) > 0:
+            node = queue.dequeue()
+            stack.push(node)
+
+            if node.right:
+                queue.enqueue(node.right)
+            if node.left:
+                queue.enqueue(node.left)
+
+        while len(stack) > 0:
+            element = stack.pop()
+            traversal += str(element.value) + "-"
+
+        return traversal
+
+
 #level 1
 tree = BinaryTree(1)
 
@@ -121,3 +171,4 @@ print(tree.printTraversal("preorder")) #O/P -> 1-2-4-8-5-3-6-7-
 print(tree.printTraversal("inorder")) #O/P -> 8-4-2-5-1-6-3-7-
 print(tree.printTraversal("postorder")) #O/P -> 8-4-5-2-6-7-3-1-
 print(tree.printTraversal("levelorder")) #O/P -> 1-2-3-4-5-6-7-8-
+print(tree.printTraversal("reverseorder")) #O/P -> 8-4-5-6-7-2-3-1-
