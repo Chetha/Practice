@@ -1,3 +1,34 @@
+class Queue(object):
+    def __init(self):
+        self.items = []
+
+    def enqueue(self, items):
+        self.items.insert(0, item)
+    '''
+    From terminal -
+    >>> nums = [1]
+    >>> num = 3
+    >>> nums.insert(0, num)
+    >>> print(nums)
+    [3, 1]
+    '''
+    #we peek the last element of list and when we insert both left and right children
+    #into list, we insert left child first at index 0 and then right child at index 0
+    #The above snippet shows that when right child is added to list at index 0, the
+    #previous left child value gets pushed to the next position, which is why we use
+    #self.items[-1].value to peek(we get the last element of list(the left child))
+    def dequeue(self):
+        if not self.is_empty():
+            return self.items.pop()
+
+    def is_empty(self, items):
+        return len(self.items) == 0
+
+    def peek(self, items):
+        if not self.is_empty():
+            return self.items[-1].value
+
+
 class Node(object):
     def __init__(self, value):
         self.value = value
