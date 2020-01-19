@@ -149,6 +149,51 @@ class BinaryTree(object):
 
         return traversal
 
+    def height(self, node):
+        if node is None:
+            return -1
+
+        leftHeight = self.height(node.left)
+        rightHeight = self.height(node.right)
+
+        return 1 + max(leftHeight, rightHeight)
+
+    def sizeIterative(self):
+        if self.root is None:
+            return 0
+
+        stack = Stack()
+
+        stack.push(self.root)
+        size = 1
+        while len(stack) > 0:
+            node = stack.pop()
+            #size += 1
+            if node.left:
+                stack.push(node.left)
+                size += 1
+            if node.right:
+                stack.push(node.right)
+                size += 1
+        return size
+
+    def sizeRecursive(self, node):
+        if node is None:
+            return 0
+        return 1 + self.sizeRecursive(node.left) + self.sizeRecursive(node.right)
+        #function within Binary Tree class called recursively,
+        #so must call as self.sizeRecursive
+
+
+
+#                The constructed tree
+#level 1                     1
+#                         /     \
+#level 2                 2       3
+#                       / \     / \
+#level 3               4   5   6   7
+#                     /
+#level 4             8
 
 #level 1
 tree = BinaryTree(1)
@@ -172,3 +217,6 @@ print(tree.printTraversal("inorder")) #O/P -> 8-4-2-5-1-6-3-7-
 print(tree.printTraversal("postorder")) #O/P -> 8-4-5-2-6-7-3-1-
 print(tree.printTraversal("levelorder")) #O/P -> 1-2-3-4-5-6-7-8-
 print(tree.printTraversal("reverseorder")) #O/P -> 8-4-5-6-7-2-3-1-
+print(tree.height(tree.root.left)) #O/P -> 2
+print(tree.sizeIterative()) #O/P -> 8
+print(tree.sizeRecursive(tree.root)) #O/P -> 8
