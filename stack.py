@@ -1,3 +1,4 @@
+#Using list
 class Stack():
     def __init__(self):
     	self.stack = []
@@ -6,7 +7,10 @@ class Stack():
     	self.stack.append(val)
 
     def pop(self):
-    	self.stack.pop()
+    	if not self.is_empty():
+    		return self.stack.pop()
+    	else:
+    		return "Cannot pop from empty stack"
 
     def print_stack(self):
     	return self.stack
